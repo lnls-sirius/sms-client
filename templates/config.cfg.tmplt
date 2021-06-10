@@ -3,7 +3,7 @@ server_ip=${server_ip}
 client_ip=${client_ip}
 
 [PREFIX]
-prefix=/sms_service
+prefix=${prefix}
 
 [EPICS]
 url=https://10.0.38.42/mgmt/bpl/getAllPVs?limit=-1
