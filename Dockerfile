@@ -28,7 +28,7 @@ RUN mkdir --verbose /opt/templates
 COPY ./templates/config.cfg.tmplt /opt/templates/config.cfg.tmplt
 
 FROM base AS flask
-CMD "envsubst < /opt/templates/config.cfg.tmplt > ./config.cfg && flask run --host ${CLIENT_IP}"
+CMD ["/bin/bash", "-c", "envsubst < /opt/templates/config.cfg.tmplt > ./config.cfg && flask run --host ${CLIENT_IP}"]
 
 FROM base AS monitor
-CMD "envsubst < /opt/templates/config.cfg.tmplt > ./config.cfg && python monitor.py"
+CMD ["/bin/bash", "-c", "envsubst < /opt/templates/config.cfg.tmplt > ./config.cfg && python monitor.py"]
