@@ -23,6 +23,10 @@ services:
         SERVER_IP_ARG: "10.20.31.19"
     ports:
       - 5000:5000
+    volumes:
+      - type: volume
+        source: mydatabase
+        target: /sms_service/client_venv/app/db
     environment:
       CLIENT_IP_ARG: "0.0.0.0"
       SERVER_IP_ARG: "10.20.31.19"
@@ -37,5 +41,12 @@ services:
       args:
         CLIENT_IP_ARG: "0.0.0.0"
         SERVER_IP_ARG: "10.20.31.19"
+    volumes:
+      - type: volume
+        source: mydatabase
+        target: /sms_service/client_venv/app/db
     labels:
       <<: *default-labels
+
+volumes: 
+  mydatabase:
