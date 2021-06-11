@@ -21,7 +21,7 @@ RUN apt-get -y update && \
 ADD ./templates /opt/templates
 
 FROM base AS flask
-CMD "envsubst < /opt/config.cfg.tmplt > /opt/config.cfg && flask run -h ${CLIENT_IP}"
+CMD "envsubst < /opt/templates/config.cfg.tmplt > /opt/config.cfg && flask run -h ${CLIENT_IP}"
 
 FROM base AS monitor
-CMD "envsubst < /opt/config.cfg.tmplt > /opt/config.cfg && python monitor.py"
+CMD "envsubst < /opt/templates/config.cfg.tmplt > /opt/config.cfg && python monitor.py"
