@@ -1,9 +1,9 @@
 [IP]
-server_ip=${server_ip}
-client_ip=${client_ip}
+server_ip=${SERVER_IP}
+client_ip=${CLIENT_IP}
 
 [PREFIX]
-prefix=${prefix}
+prefix=${PREFIX}
 
 [EPICS]
-url=https://10.0.38.42/mgmt/bpl/getAllPVs?limit=-1
+url=${EPICS_URL}
