@@ -14,8 +14,7 @@ ENV EPICS_URL ${EPICS_URL_ARG}
 ENV PREFIX ${PREFIX_ARG}
 ENV SERVER_IP ${SERVER_IP_ARG}
 
-RUN apt-get -y update && \
-    apt install -y gettext-base git
+RUN apt-get -y update && apt install -y gettext-base git
 
 # Replace this with ADD with RUN and update the workdir to /opt/sms_service/client_venv
 RUN cd /opt && git clone ${REPO_URL} && cd ${REPO_NAME} && git checkout ${REPO_COMMIT}
