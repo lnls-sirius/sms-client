@@ -5,30 +5,30 @@ ARG EPICS_URL_ARG=https://10.0.38.42/mgmt/bpl/getAllPVs?limit=-1
 ARG PREFIX_ARG
 ARG SERVER_IP_ARG
 
-# ARG REPO_URL=https://github.com/SIRIUS-GOP/sms_service/tree/main
-# ARG REPO_COMMIT=master
+ARG REPO_NAME=sms_service
+ARG REPO_URL=https://github.com/SIRIUS-GOP/${REPO_NAME}
+ARG REPO_COMMIT=main
 
 ENV CLIENT_IP ${CLIENT_IP_ARG}
 ENV EPICS_URL ${EPICS_URL_ARG}
 ENV PREFIX ${PREFIX_ARG}
 ENV SERVER_IP ${SERVER_IP_ARG}
 
-WORKDIR /opt
+RUN apt-get -y update && \
+    apt install -y gettext-base git
 
 # Replace this with ADD with RUN and update the workdir to /opt/sms_service/client_venv
-# RUN git clone ${REPO_URL} && git checkout ${REPO_COMMIT}
-# WORKDIR /opt/sms_service/client_venv
-ADD sms_service/client_venv /opt
+RUN cd /opt && git clone ${REPO_URL} && cd ${REPO_NAME} && git checkout ${REPO_COMMIT}
+WORKDIR /opt/${REPO_NAME}/client_venv
 
-RUN apt-get -y update && \
-    apt install -y gettext-base git && \
-    pip install --upgrade -r requirements.txt &&\
+RUN pip install --upgrade -r requirements.txt &&\
     pip install requests
 
-COPY ./templates/config.cfg.tmplt ./config.cfg.tmplt
+RUN mkdir --verbose /opt/templates
+COPY ./templates/config.cfg.tmplt /opt/templates/config.cfg.tmplt
 
 FROM base AS flask
-CMD "envsubst < /opt/templates/config.cfg.tmplt > /opt/config.cfg && flask run -h ${CLIENT_IP}"
+CMD "envsubst < /opt/templates/config.cfg.tmplt > ./config.cfg && flask run --host ${CLIENT_IP}"
 
 FROM base AS monitor
-CMD "envsubst < /opt/templates/config.cfg.tmplt > /opt/config.cfg && python monitor.py"
+CMD "envsubst < /opt/templates/config.cfg.tmplt > ./config.cfg && python monitor.py"

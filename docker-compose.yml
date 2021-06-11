@@ -5,16 +5,15 @@ x-environment:
   br.com.lnls-sirius.department: ${DEPARTMENT}
   org.opencontainers.image.authors: ${AUTHOR}
   org.opencontainers.image.created: ${BUILD_DATE_RFC339}
-# org.opencontainers.image.licenses: ${LICENSE}
   org.opencontainers.image.revision: ${COMMIT_HASH}
-  org.opencontainers.image.source: https://github.com/SIRIUS-GOP/sms_service
-  org.opencontainers.image.url: https://github.com/rbatistacardoso/sms-client
+  org.opencontainers.image.source: ${REPO_URL}
+  org.opencontainers.image.url: ${REPOSITORY}
   org.opencontainers.image.vendor: ${VENDOR}
   org.opencontainers.image.version: ${IMAGE_COMMIT_HASH}
 
 services:
   flask:
-    image: "lnlscon/sms-client-flask"
+    image: "lnlscon/sms-client-flask:${IMAGE_COMMIT_HASH}-${BUILD_DATE}"
     build:
       context: "."
       target: flask
@@ -34,7 +33,7 @@ services:
       <<: *default-labels
 
   monitor:
-    image: "lnlscon/sms-client-monitor"
+    image: "lnlscon/sms-client-monitor:${IMAGE_COMMIT_HASH}-${BUILD_DATE}"
     build:
       context: "."
       target: monitor
