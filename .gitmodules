@@ -1,3 +1,0 @@
-[submodule "sms_service"]
-	path = sms_service
-	url = https://github.com/SIRIUS-GOP/sms_service
