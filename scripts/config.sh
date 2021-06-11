@@ -18,7 +18,7 @@ VENDOR="CNPEM"
 # Repo
 REPO_NAME="sms_service"
 REPO_URL="https://github.com/SIRIUS-GOP/${REPO_NAME}"
-IMAGE_COMMIT_HASH="main"
+REPO_COMMIT="main"
 
 # -----------------------------------------------------------------
 BUILD_ENVS="\
@@ -27,8 +27,8 @@ BUILD_ENVS="\
     COMMIT_HASH=${COMMIT} \
     DEPARTMENT=${DEPARTMENT} \
     DOCKER_IMAGE_PREFIX=${DOCKER_IMAGE_PREFIX} \
-    IMAGE_COMMIT_HASH=${IMAGE_COMMIT_HASH} \
     REPOSITORY=${REPOSITORY} \
+    REPO_COMMIT=${REPO_COMMIT} \
     REPO_NAME=${REPO_NAME} \
     REPO_URL=${REPO_URL} \
     VENDOR=${VENDOR}"
